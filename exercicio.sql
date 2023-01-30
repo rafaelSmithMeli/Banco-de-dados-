@@ -73,3 +73,68 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+CREATE DATABASE db_pizzaria_legal;
+
+USE db_pizzaria_legal;
+
+CREATE TABLE tb_categorias(
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(255) NOT NULL,
+    origem VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tb_pizzas(
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
+	caracteristica VARCHAR(255) NOT NULL,
+    sabor VARCHAR(255) NOT NULL,
+    tamanho VARCHAR(255) NOT NULL,
+    preço float  NOT NULL,
+    fk_categorias BIGINT NOT NULL,
+	FOREIGN KEY (fk_categorias) REFERENCES tb_categorias(id)
+);
+
+INSERT INTO tb_categorias(tipo,origem )
+VALUES("frita", "Nápoles");
+INSERT INTO tb_categorias(tipo, origem)
+VALUES("Pissalandrea","Gênova" );
+INSERT INTO tb_categorias(tipo, origem)
+VALUES("Sfincione","Sicília");
+INSERT INTO tb_categorias(tipo, origem)
+VALUES("al tegamino", "Turim");
+INSERT INTO tb_tb_categoriastb_pizzascategorias(tipo, origem)
+VALUES("Pizza de Nova Iorque","Nova Iorque");
+
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Salgada","Calabresa","Grande",50.00, 3);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Salgada","Mussarela","Média",30.00, 4);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Doce","Chocolate","Pequena",18.00, 2);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Doce","Banana","Pequena",15.00, 1);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Salgada","Frango c/Catupiry","Grande",70.00, 2);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Salgada","Palmito","Média",55.00, 5);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Doce","Abacaxi","Pequena",18.00, 3);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Salgada","Carne-Seca","Média",40.00, 5);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Salgada","Marguerita","Grande",65.00, 5);
+INSERT INTO tb_pizzas(caracteristica, sabor, tamanho, preço, fk_categorias)
+VALUES("Salgada","Portuguesa","Grande",68.00, 1);
+
+SELECT * FROM tb_pizzas;
+SELECT * FROM tb_categorias;
+
+SELECT * FROM tb_pizzas WHERE preço > 45.00;
+SELECT * FROM tb_pizzas WHERE preço < 100.00 AND preço >= 50.00;
+
+SELECT * FROM tb_pizzas WHERE nome LIKE '%c%';
+
+SELECT * FROM tb_pizzas
+INNER JOIN tb_categorias ON tb_categorias.id = tb_pizzas.fk_categorias;
+
+SELECT * FROM tb_pizzas
+INNER JOIN tb_categorias ON tb_categorias.id = tb_pizzas.fk_categorias AND fk_categorias = 3;
